@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="955aa5bb-9899-4d2e-a56d-cba2d55d61c2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/purchases/urls.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/apps.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/models/customers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/models/product.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/models/purchase.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/permissions.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/serializers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/serializers/customers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/serializers/product.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/serializers/purchase.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/urls.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/views/customers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/views/product.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/quickstart/views/purchase.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/quickstart/__init__.py" afterPath="$PROJECT_DIR$/purchases/serializers.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/quickstart/migrations/__init__.py" afterPath="$PROJECT_DIR$/product/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/quickstart/models/__init__.py" afterPath="$PROJECT_DIR$/product/serializers.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/quickstart/serializers/__init__.py" afterPath="$PROJECT_DIR$/customer/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/quickstart/views/__init__.py" afterPath="$PROJECT_DIR$/customer/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tutorial/settings.py" afterPath="$PROJECT_DIR$/tutorial/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tutorial/urls.py" afterPath="$PROJECT_DIR$/tutorial/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product/models.py" afterPath="$PROJECT_DIR$/product/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -119,11 +93,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/customer/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
               <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/product/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="9" column="43" lean-forward="false" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -134,18 +118,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
               <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/purchases/serializers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="24" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="24" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -168,7 +140,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/product/models.py" />
         <option value="$PROJECT_DIR$/product/serializers.py" />
         <option value="$PROJECT_DIR$/product/urls.py" />
         <option value="$PROJECT_DIR$/customer/serializers.py" />
@@ -182,6 +153,7 @@
         <option value="$PROJECT_DIR$/tutorial/settings.py" />
         <option value="$PROJECT_DIR$/tutorial/urls.py" />
         <option value="$PROJECT_DIR$/customer/models.py" />
+        <option value="$PROJECT_DIR$/product/models.py" />
       </list>
     </option>
   </component>
@@ -223,7 +195,7 @@
             <path>
               <item name="inventory-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="inventory-server" type="462c0819:PsiDirectoryNode" />
-              <item name="customer" type="462c0819:PsiDirectoryNode" />
+              <item name="product" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -449,14 +421,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/product/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/product/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -639,6 +603,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/product/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="43" lean-forward="false" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
           <folding />
         </state>
       </provider>
