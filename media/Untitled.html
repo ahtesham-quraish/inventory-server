@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>
+form validation</title>
+<script type="text/javascript">
+function validate(){
+if(document.myform.name.value==""){
+alert("please provide your name!");
+document.myform.name.focus();
+event.preventDefault();
+return false;
+}
+if(document.myform.email.value==""){
+alert("please provide your email");
+document.myform.email.focus();
+event.preventDefault();
+return false;
+}
+alert("form submitted")
+}
+</script>
+</head>
+<form name="myform" onsubmit="validate()">
+<table cellpadding="2"cellspacing="3"border="1">
+<tr>
+<td align="right">name</td>
+<td><input type="text"name="name"/></td>
+</tr>
+<tr>
+<td align="right">email</td>
+<td><input type="text"name ="email"/></td>
+</tr>
+<tr>
+<td align="right">zip code</td>
+<td><input type="text"name="zip"/></td>
+<tr>
+<td align="right">country</td>
+<td>
+<select name="country">
+<option value="-1"selected>your choice</option>
+<option value="2">USA</option>
+<option value="3">UK</option>
+</select>
+</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td><input type="Submit"  value="Submit"></td>
+</tr>
+</table>
+</form>
+</body>
+
+</html>

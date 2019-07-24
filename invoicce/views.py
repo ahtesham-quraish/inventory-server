@@ -6,58 +6,68 @@ from invoicce.models import Invoice,InvoiceItems
 from product.models import Product
 from customer.models import Customer
 from product.serializers import ProductSerializer
+from django.core.mail import EmailMessage
+import os
+from tutorial.settings import MEDIA_ROOT
+from django.core.files.storage import FileSystemStorage
+from customer.models import Customer
 # Create your views here.
 import traceback
 from django.db import transaction
 
 class InvoiceView(APIView):
     def get(self,request):
-        invoices = Invoice.objects.all().select_related('customer')
-        invoice_list = []
-        if invoices:
-            for invoice in invoices:
-                items = []
-                invoice_items = InvoiceItems.objects.filter(invoice=invoice).select_related('product')
-                if invoice_items:
-                    for item in invoice_items:
-                        temp={
-                            'brand': item.product.brand,
-                            'created':item.product.created,
-                            'custDescription':item.customerDescription,
-                            'description':item.product.description,
-                            'id':item.product.id,
-                            'price':item.product.price,
-                            'qoutedPrice':item.overiddenPrice,
-                            'quatity':item.product.quatity,
-                            'requiredQty':item.quatityOffered,
-                            'size':item.product.size,
-                            'title':item.product.title,
-                            'unit':item.product.unit,
-                            'updated':item.product.updated
-                        }
-                        items.append(temp)
-                        temp={
-                            'id':invoice.id,
-                            'cutsomer':{
-                              'Address1':invoice.customer.Address1,
-                                'Address2':invoice.customer.Address2,
-                                'Phone':invoice.customer.Phone,
-                                'city':invoice.customer.city,
-                                'company_name':invoice.customer.company_name,
-                                'country':invoice.customer.country,
-                                'created':invoice.customer.created,
-                                'description':invoice.customer.description,
-                                'email':invoice.customer.email,
-                                'fName':invoice.customer.fName,
-                                'id':invoice.customer.id,
-                                'lName':invoice.customer.lName,
-                                'postal_code':invoice.customer.postal_code
-                            },
-                            'products':items
-                        }
-                        invoice_list.append(temp)
-                        items=[]
-        return Response({"status":200,"invoices":invoice_list})
+        invoices = Invoice.objects.all()
+        for invoice in invoices:
+
+
+        # invoices = Invoice.objects.all().select_related('customer')
+        # invoice_list = []
+        # if invoices:
+        #     for invoice in invoices:
+        #         items = []
+        #         invoice_items = InvoiceItems.objects.filter(invoice=invoice).select_related('product')
+        #         if invoice_items:
+        #             for item in invoice_items:
+        #                 temp={
+        #                     'brand': item.product.brand,
+        #                     'created':item.product.created,
+        #                     'custDescription':item.customerDescription,
+        #                     'description':item.product.description,
+        #                     'id':item.product.id,
+        #                     'price':item.product.price,
+        #                     'qoutedPrice':item.overiddenPrice,
+        #                     'quatity':item.product.quatity,
+        #                     'requiredQty':item.quatityOffered,
+        #                     'size':item.product.size,
+        #                     'title':item.product.title,
+        #                     'unit':item.product.unit,
+        #                     'updated':item.product.updated
+        #                 }
+        #                 items.append(temp)
+        #
+        #             temp = {
+        #                 'id': invoice.id,
+        #                 'dateCreated': invoice.created,
+        #                 'cutsomer': {
+        #                     'Address1': invoice.customer.Address1,
+        #                     'Address2': invoice.customer.Address2,
+        #                     'Phone': invoice.customer.Phone,
+        #                     'city': invoice.customer.city,
+        #                     'company_name': invoice.customer.company_name,
+        #                     'country': invoice.customer.country,
+        #                     'created': invoice.customer.created,
+        #                     'description': invoice.customer.description,
+        #                     'email': invoice.customer.email,
+        #                     'fName': invoice.customer.fName,
+        #                     'id': invoice.customer.id,
+        #                     'lName': invoice.customer.lName,
+        #                     'postal_code': invoice.customer.postal_code
+        #                 },
+        #                 'products': items
+        #             }
+        #
+        # return Response({"status":200,"invoices":invoice_list})
 
 
     def post(self,request):
@@ -96,6 +106,7 @@ class InvoiceByCustomer(APIView):
         for item in invoiceItems:
             product_data = ProductSerializer(item.product, many=False)
             temp = {
+                "id":item.id,
                 "original_product":product_data.data,
                 "added_info":{
                     'custDescription': item.customerDescription,
@@ -105,4 +116,45 @@ class InvoiceByCustomer(APIView):
             }
             invoice_products.append(temp)
         return Response({"status":status.HTTP_201_CREATED,"products":invoice_products})
+
+
+class EmailInvoice(APIView):
+
+    def post(self,request):
+        user_id = request.data.get('user_id')
+        file = request.FILES.get('file')
+        if user_id is None:
+            return Response({
+                "status":status.HTTP_406_NOT_ACCEPTABLE,
+                "message":"All fields are required"
+            })
+        if file is None:
+            return Response({
+                "status": status.HTTP_404_NOT_FOUND,
+                "message": "All fields are required"
+            })
+        try:
+            customer = Customer.objects.filter(id=user_id)
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            print("sending to ",customer[0].email)
+            email = EmailMessage(
+                'Hello',
+                'Body goes here',
+                'samaid2025@gmail.com',
+                [customer[0].email],
+                ['samaid2025@gmail.com'],
+                reply_to=['samaid2025@gmail.com'],
+                headers={'Message-ID': 'foo'},
+            )
+            print(MEDIA_ROOT)
+            email.attach_file(MEDIA_ROOT + '/' + filename)
+            email.send(fail_silently=False)
+            return Response({"status": status.HTTP_200_OK,
+                "message": "Qoutation emailed to customer"})
+        except:
+            return Response({
+                "status": status.HTTP_500_INTERNAL_SERVER_ERROR,
+                "message": "Qoutation could not be emailed"
+            })
 
