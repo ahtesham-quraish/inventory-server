@@ -16,9 +16,9 @@ import traceback
 from django.db import transaction
 
 class InvoiceView(APIView):
-    def get(self,request):
-        invoices = Invoice.objects.all()
-        for invoice in invoices:
+    # def get(self,request):
+        # invoices = Invoice.objects.all()
+        # for invoice in invoices:
 
 
         # invoices = Invoice.objects.all().select_related('customer')
