@@ -13,8 +13,11 @@ class Customer(models.Model):
     country  = models.CharField(max_length=20, default='Pakistan', null=True, blank=True)
     email = models.CharField(max_length=100)
     description = models.CharField(max_length=200, default=None, null=True, blank=True)
+    gst = models.CharField(max_length=50, default='')
+    ntn = models.CharField(max_length=50, default='')
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return self.fName +" "+self.lName
