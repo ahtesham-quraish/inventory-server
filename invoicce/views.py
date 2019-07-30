@@ -11,14 +11,29 @@ import os
 from tutorial.settings import MEDIA_ROOT
 from django.core.files.storage import FileSystemStorage
 from customer.models import Customer
+from invoicce.serializer import InvoiceItemsSerializer
 # Create your views here.
 import traceback
 from django.db import transaction
 
 class InvoiceView(APIView):
-    # def get(self,request):
-        # invoices = Invoice.objects.all()
-        # for invoice in invoices:
+    def get(self,request):
+        invoices_set = Invoice.objects.all().select_related("customer")
+        invoices = []
+        print("invoices are ",invoices_set)
+        for invoice in invoices_set:
+            invoice_items = InvoiceItems.objects.filter(invoice=invoice)
+            invoice_temp = {
+                "id": invoice.id,
+                "customer": invoice.customer.fName+" "+invoice.customer.lName,
+                "products":InvoiceItemsSerializer(invoice_items,many=True).data,
+                "dateCreated": invoice.created
+            }
+            print("temp is ",invoice_temp)
+            invoices.append(invoice_temp)
+
+        return Response({"invoices":invoices})
+
 
 
         # invoices = Invoice.objects.all().select_related('customer')
