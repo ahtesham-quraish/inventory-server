@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from invoicce.models import InvoiceItems
-# from product.serializers import TopicRelatedField
+from product.serializers import ProductSerializer
 
 class InvoiceItemsSerializer(serializers.ModelSerializer):
-    product = serializers.StringRelatedField(many=True)
+    product = ProductSerializer()
 
     class Meta:
         model = InvoiceItems
