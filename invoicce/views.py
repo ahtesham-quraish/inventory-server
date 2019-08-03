@@ -11,19 +11,23 @@ import os
 from tutorial.settings import MEDIA_ROOT
 from django.core.files.storage import FileSystemStorage
 from customer.models import Customer
-from invoicce.serializer import InvoiceItemsSerializer
+from invoicce.serializer import InvoiceItemsSerializer, InvoiceSerlializer
 # Create your views here.
 import traceback
 from django.db import transaction
+from django.db.models import Q
 
 class InvoiceView(APIView):
     def get(self,request):
-        invoice_id = request.data.get('invoice_id')
-        cust_id = request.data.get('cust_id')
+        invoice_id = request.GET.get('invoice_id')
+        cust_id = request.GET.get('cust_id')
+        print("cust id is ", invoice_id)
         if invoice_id is None:
+
             if cust_id:
+                print("getting for cust")
                 cust_set = Customer.objects.filter(id=cust_id)
-                invoices_set = Invoice.objects.all(customer=cust_set[0]).select_related("customer")
+                invoices_set = Invoice.objects.filter(customer=cust_set[0]).select_related("customer")
                 invoices = []
                 print("invoices are ", invoices_set)
                 for invoice in invoices_set:
@@ -55,7 +59,19 @@ class InvoiceView(APIView):
 
                 return Response({"invoices": invoices})
         else:
-            pass
+            products = []
+            invoices_set = Invoice.objects.filter(id=invoice_id).select_related("customer")
+            if invoices_set:
+                invoice_items = InvoiceItems.objects.filter(invoice=invoices_set[0])
+                if invoice_items:
+                    invoice_data = InvoiceSerlializer(invoices_set,many=True)
+                    products = InvoiceItemsSerializer(invoice_items,many=True)
+                    temp = {
+                        "invoice":invoice_data.data[0],
+                        "products":products.data
+                    }
+                    return Response(temp)
+
 
 
 
@@ -111,12 +127,25 @@ class InvoiceView(APIView):
     def post(self,request):
         products = request.data.get('products')
         customer = request.data.get('customer')
+        invoiceInputs = request.data.get('invoiceInputs')
         customer_instance = Customer.objects.filter(id=customer["id"])
+        print("saving ...",type(invoiceInputs['qoutNumber']))
         print (customer_instance)
         try:
             
             with transaction.atomic():
-                Invoice_Inctance = Invoice.objects.create(customer=customer_instance[0])
+                Invoice_Inctance = Invoice.objects.create(customer=customer_instance[0],buyerOrderNumber=invoiceInputs['buyerOrderNumber'],
+                                                    buyerOrderNumberDate=invoiceInputs['buyerOrderNumberDate'],
+                                                    taxInvoiceNumber=invoiceInputs['taxInvoiceNumber'],
+                                                    taxInvoiceNumberDate=invoiceInputs['taxInvoiceNumberDate'],
+                                                    deliverNumber=invoiceInputs['deliverNumber'],
+                                                    deliverNumberDate=invoiceInputs['deliverNumberDate'],
+                                                    qoutNumber=invoiceInputs['qoutNumber'],
+                                                    qoutNumberDate=invoiceInputs['qoutNumberDate'],
+                                                          subTotal=invoiceInputs['subTotal'],
+                                                          grandTotal=invoiceInputs['grandTotal'],
+                                                          discount=invoiceInputs['discount'],
+                                                          )
                 for product in products:
                     product_instance = Product.objects.filter(id=product['id'])
                     if product_instance:
@@ -124,11 +153,15 @@ class InvoiceView(APIView):
                                                     product=product_instance[0],
                                                     overiddenPrice=product['qoutedPrice'],
                                                     quatityOffered=product['requiredQty'],
-                                                    customerDescription=product['custDescription']
+                                                    customerDescription=product['custDescription'],
+
+
                                                     )
                 return Response({"status": status.HTTP_201_CREATED})
 
         except:
+
+            traceback.print_exc()
             return Response({"status": status.HTTP_500_INTERNAL_SERVER_ERROR})
 
 
