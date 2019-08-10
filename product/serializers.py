@@ -8,6 +8,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('id','title','description', 'size','brand', 'unit', 'quatity','price','sae','api' ,'owner', 'created', 'updated')
 
 
+
 class TopicRelatedField(serializers.RelatedField):
     def get_queryset(self):
         return Product.objects.all()

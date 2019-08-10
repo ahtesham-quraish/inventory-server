@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import Bank, Transaction
+from account.models import Bank, Category
 
 class BankSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')  # new
@@ -8,10 +8,13 @@ class BankSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TransactionSerializer(serializers.ModelSerializer):
+
+
+class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')  # new
 
     class Meta:
-        model = Transaction
+        model = Category
         fields = '__all__'
+
 
