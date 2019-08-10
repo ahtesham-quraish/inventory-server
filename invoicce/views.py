@@ -123,14 +123,29 @@ class InvoiceView(APIView):
         #
         # return Response({"status":200,"invoices":invoice_list})
 
+    def put(self,request):
+        invoice_id = request.data.get('id')
+        status = request.data.get('status')
+        amount = request.data.get('amount')
+
+        invoice = Invoice.objects.filter(id=invoice_id)
+        if invoice:
+            invoice[0].status = status
+            invoice[0].residualPayment = amount
+            invoice[0].save()
+            return Response({"status": 200})
+        else:
+            return Response({"status": 404})
+
+
+
 
     def post(self,request):
         products = request.data.get('products')
         customer = request.data.get('customer')
         invoiceInputs = request.data.get('invoiceInputs')
         customer_instance = Customer.objects.filter(id=customer["id"])
-        print("saving ...",type(invoiceInputs['qoutNumber']))
-        print (customer_instance)
+        print("invoice input is ",invoiceInputs['status'])
         try:
             
             with transaction.atomic():
@@ -145,6 +160,7 @@ class InvoiceView(APIView):
                                                           subTotal=invoiceInputs['subTotal'],
                                                           grandTotal=invoiceInputs['grandTotal'],
                                                           discount=invoiceInputs['discount'],
+                                                          status=invoiceInputs['status'],
                                                           )
                 for product in products:
                     product_instance = Product.objects.filter(id=product['id'])

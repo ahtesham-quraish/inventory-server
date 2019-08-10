@@ -10,7 +10,7 @@ class InvoiceSerlializer(serializers.ModelSerializer):
         model = Invoice
         fields = ('id','buyerOrderNumber','buyerOrderNumberDate','taxInvoiceNumber','taxInvoiceNumberDate'
                   ,'deliverNumber','deliverNumberDate','qoutNumber','qoutNumberDate','subTotal','grandTotal',
-                  'discount','customer')
+                  'discount','status','residualPayment','customer')
 
 class InvoiceItemsSerializer(serializers.ModelSerializer):
     product = ProductSerializer()

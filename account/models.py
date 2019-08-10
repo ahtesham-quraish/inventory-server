@@ -8,7 +8,7 @@ class Bank(models.Model):
 
 
 class Transaction(models.Model):
-    bank_account = models.CharField(max_length=20, default="", null=True, blank=True)
+    bank_account = models.ForeignKey(Bank, on_delete=models.CASCADE)
     date = models.CharField(max_length=20, default="", null=True, blank=True)
     type = models.CharField(max_length=20, default="", null=True, blank=True)
     category = models.CharField(max_length=20, default="", null=True, blank=True)
