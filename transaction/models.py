@@ -2,16 +2,19 @@ from django.db import models
 from customer.models import Customer
 from account.models import Category
 from account.models import Bank
+from invoicce.models import Invoice
 # Create your models here.
 
 class Transaction(models.Model):
-    bank_account = models.ForeignKey(Bank, on_delete=models.CASCADE)
-    date = models.CharField(max_length=20, default="", null=True, blank=True)
+    bank_account = models.ForeignKey(Bank, related_name='bank', on_delete=models.CASCADE, blank=True,
+        null=True)
+    date = models.CharField(max_length=20,  default="", null=True, blank=True)
     type = models.CharField(max_length=20, default="", null=True, blank=True)
-    category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE,  default='1' )
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,  default=2)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE )
+    invoiceId = models.CharField(max_length=20, default='', null=True, blank=True)
+    customer = models.ForeignKey(Customer, related_name='cust', on_delete=models.CASCADE,  blank=True,
+        null=True)
     description = models.CharField(max_length=20, default="", null=True, blank=True)
     amount = models.CharField(max_length=20, default="", null=True, blank=True)
+    isSuperAdmin = models.BooleanField(default=True)
 
-    def __unicode__(self):
-        return self.bank_account

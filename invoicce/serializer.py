@@ -14,8 +14,9 @@ class InvoiceSerlializer(serializers.ModelSerializer):
 
 class InvoiceItemsSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
+    invoice = InvoiceSerlializer()
 
     class Meta:
         model = InvoiceItems
-        fields = ( 'id','overiddenPrice', 'quatityOffered','customerDescription','product')
+        fields = ( 'id','overiddenPrice', 'quatityOffered','customerDescription','product', 'invoice')
 

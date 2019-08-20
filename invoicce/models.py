@@ -24,6 +24,7 @@ class Invoice(models.Model):
 
 
 class InvoiceItems(models.Model):
+
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     overiddenPrice = models.IntegerField(default=0)
