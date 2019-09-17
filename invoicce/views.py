@@ -123,6 +123,20 @@ class InvoiceView(APIView):
         #
         # return Response({"status":200,"invoices":invoice_list})
 
+    def delete(self,request):
+        invoice_id = request.GET.get("invoice_id")
+
+        if invoice_id:
+            target_invoice = Invoice.objects.filter(id=invoice_id)
+            if(target_invoice):
+                target_invoice.delete()
+                return Response({"status": 200,"message":"invoice deleted"})
+            else:
+                return Response({"status": 414,"message":"invoice does not exist"})
+            
+        else:
+            return Response({"status": 200,"message":"invoice id missing"})
+
     def put(self,request):
         invoice_id = request.data.get('id')
         status = request.data.get('status')

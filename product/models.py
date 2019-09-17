@@ -3,7 +3,7 @@ from django.db import models
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=300)
+    description = models.CharField(max_length=300, default='N/A', null=True, blank=True)
     brand  = models.CharField(max_length=20)
     quatity  =models.IntegerField(default=0)
     price = models.IntegerField(default=0)

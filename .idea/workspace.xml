@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="955aa5bb-9899-4d2e-a56d-cba2d55d61c2" name="Default" comment="" />
+    <list default="true" id="955aa5bb-9899-4d2e-a56d-cba2d55d61c2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +108,7 @@
       <workItem from="1565371211917" duration="4451000" />
       <workItem from="1565405261655" duration="16013000" />
       <workItem from="1566233805530" duration="6844000" />
+      <workItem from="1568703319703" duration="634000" />
     </task>
     <servers />
   </component>
