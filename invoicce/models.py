@@ -3,7 +3,7 @@ from product.models import Product
 from customer.models import Customer
 # Create your models here.
 class Invoice(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
     buyerOrderNumber = models.CharField(max_length=20, default="", null=True, blank=True)
     buyerOrderNumberDate = models.CharField(max_length=20, default="", null=True, blank=True)
     taxInvoiceNumber = models.CharField(max_length=20, default="", null=True, blank=True)

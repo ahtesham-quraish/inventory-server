@@ -17,29 +17,34 @@ class TransactionView(APIView):
         return Response(TransactionSerializer(transactions_set, many=True).data)
 
     def post(self, request):
-        print(request.data)
         category = request.data.get('category')
         bank_account = request.data.get('bank_account')
         customer_id = request.data.get('customer')
         inputs = request.data
+        categoryData = None
+        customerDate = None
         category_instance = Category.objects.filter(id=category)
-        customer_instance = ''
+        if category_instance.exists():
+            categoryData  =  category_instance[0]
+
         if customer_id is not None:
             customer_instance = Customer.objects.filter(id=customer_id)
         else:
             customer_instance = Customer.objects.filter(id=2)
 
+        if customer_instance.exists():
+            customerDate = customer_instance[0]
         bank_instance = Bank.objects.filter(id=bank_account)
 
-        print("category input is ", category_instance[0])
-        print("customer input is ", customer_instance[0])
+        print("category input is ======(()((_()())))========", categoryData)
+        print("customer input is ", customerDate)
         print("bank input is ", bank_instance[0])
         print(request.data.get('amount'))
         try:
 
             with transaction.atomic():
-                Transaction_Inctance = Transaction.objects.create(category=category_instance[0],
-                                                          customer=customer_instance[0],
+                Transaction_Inctance = Transaction.objects.create(category=categoryData,
+                                                          customer=customerDate,
                                                           description=inputs.get('description'),
                                                           amount=inputs.get('amount'),
                                                           type=inputs.get('type'),

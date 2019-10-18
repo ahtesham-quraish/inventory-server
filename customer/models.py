@@ -11,7 +11,7 @@ class Customer(models.Model):
     postal_code = models.CharField(max_length=20, default=None, null=True, blank=True)
     city = models.CharField(max_length=20)
     company_name = models.CharField(max_length=200, default=None, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,  default='1')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     country  = models.CharField(max_length=20, default='Pakistan', null=True, blank=True)
     email = models.CharField(max_length=100)
     customer_type = models.CharField(max_length=200, default=None, null=True, blank=True)

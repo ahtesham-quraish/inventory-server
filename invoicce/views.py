@@ -72,57 +72,6 @@ class InvoiceView(APIView):
                     }
                     return Response(temp)
 
-
-
-
-        # invoices = Invoice.objects.all().select_related('customer')
-        # invoice_list = []
-        # if invoices:
-        #     for invoice in invoices:
-        #         items = []
-        #         invoice_items = InvoiceItems.objects.filter(invoice=invoice).select_related('product')
-        #         if invoice_items:
-        #             for item in invoice_items:
-        #                 temp={
-        #                     'brand': item.product.brand,
-        #                     'created':item.product.created,
-        #                     'custDescription':item.customerDescription,
-        #                     'description':item.product.description,
-        #                     'id':item.product.id,
-        #                     'price':item.product.price,
-        #                     'qoutedPrice':item.overiddenPrice,
-        #                     'quatity':item.product.quatity,
-        #                     'requiredQty':item.quatityOffered,
-        #                     'size':item.product.size,
-        #                     'title':item.product.title,
-        #                     'unit':item.product.unit,
-        #                     'updated':item.product.updated
-        #                 }
-        #                 items.append(temp)
-        #
-        #             temp = {
-        #                 'id': invoice.id,
-        #                 'dateCreated': invoice.created,
-        #                 'cutsomer': {
-        #                     'Address1': invoice.customer.Address1,
-        #                     'Address2': invoice.customer.Address2,
-        #                     'Phone': invoice.customer.Phone,
-        #                     'city': invoice.customer.city,
-        #                     'company_name': invoice.customer.company_name,
-        #                     'country': invoice.customer.country,
-        #                     'created': invoice.customer.created,
-        #                     'description': invoice.customer.description,
-        #                     'email': invoice.customer.email,
-        #                     'fName': invoice.customer.fName,
-        #                     'id': invoice.customer.id,
-        #                     'lName': invoice.customer.lName,
-        #                     'postal_code': invoice.customer.postal_code
-        #                 },
-        #                 'products': items
-        #             }
-        #
-        # return Response({"status":200,"invoices":invoice_list})
-
     def delete(self,request):
         invoice_id = request.GET.get("invoice_id")
 
